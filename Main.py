@@ -1,11 +1,29 @@
-import os                                                  import sys                                                 os.system("pip install aiohttp")
-os.system("pip install jishaku")                           os.system("pip install requests")                          import ast                                                 import inspect
-import re                                                  import time                                                import asyncio                                             import aiohttp
-import discord                                             import requests
-import jishaku                                             import time                                                from discord.ext import commands
-os.system("clear")                                                                                                    f = open("alive.txt", "r")
-launch = f.read()                                          if launch == "true":                                         print("starting sniper")
-else:                                                        sys.exit()                                               
+
+import os
+import sys
+os.system("pip install aiohttp")
+os.system("pip install jishaku")
+os.system("pip install requests")
+import ast
+import inspect
+import re
+import time
+import asyncio
+import aiohttp
+import discord
+import requests
+import jishaku
+import time
+from discord.ext import commands
+os.system("clear")
+
+f = open("alive.txt", "r")
+launch = f.read()
+if launch == "true":
+  print("starting sniper")
+else:
+  sys.exit()
+
 
 
 ip = requests.get('https://api.ipify.org/').text
@@ -13,15 +31,15 @@ print(ip)
 vanity_list = ["vanity1", "vanity2", "you can add multiple vanities"]
 delay = 0
 sleep = 0
-console = "log id" # channel id to log events
-guild = "sunucu id" # guild id where u wanna claim the vanity
-shards = 1
+console = "960162042503917658" # channel id to log events
+guild = "959795104372125756" # guild id where u wanna claim the vanity 
+shards = 1 
 
 
 #os.system("clear")
 
 
-tkn = "token" # yo bot's tucan
+tkn = "" # yo bot's tucan
 prefix = "."
 
 
@@ -37,17 +55,17 @@ client.load_extension('jishaku')
 
 
 
-@client.event
-async def on_command_error(ctx, error):
+@client.event 
+async def on_command_error(ctx, error): 
   return
-
-
-
+  
+  
+  
 @client.event
 async def on_ready():
-  print("READYYYYYYYY")
-
-
+  print("READYYYYYYYY")  
+  
+  
 @client.event
 async def on_connect():
   guild_ = client.get_guild(int(guild))
@@ -58,7 +76,7 @@ async def on_connect():
     sys.exit()
   snipe_msg = ""
   for day in vanity_list:
-    snipe_msg += f"• {day}\n"
+    snipe_msg += f"• {day}\n" 
   conn = aiohttp.TCPConnector(limit=10)
   async with aiohttp.ClientSession(headers=headers, connector=conn) as session:
     async with session.post(f"https://canary.discord.com/api/v9/channels/{console}/messages", json={'content': '>>> websocket connected.\nProxy: '+ip+'\n__Sniping List__-\n'+snipe_msg}) as ok:
@@ -76,23 +94,23 @@ async def on_connect():
                    print(ok.status)
                    time.sleep(30)
               elif v.status == 200:
-                print('\033[92m'+"[+] Attempt " + str(idk) + " status: 200 | "+vx)
-
+                print('\033[92m'+"[+] Attempt " + str(idk) + " status: 200 | "+vx) 
+                
               elif v.status == 404:
-                  async with session.patch(f"https://discord.com/api/v9/guilds/{guild}/vanity-url", json={'code': vx}) as r:
+                  async with session.patch(f"https://discord.com/api/v9/guilds/{guild}/vanity-url", json={'code': vx}) as r: 
                       if r.status == 200:
-
+                        
                         async with session.post(f"https://discord.com/api/v9/channels/{console}/messages", json={'content': '@everyone vanity sniped.\n'+'https://discord.gg/'+vx}) as ok:
-                          print(ok.status)
-
+                          print(ok.status) 
+                  
                           f = open("alive.txt", "w"); f.write("false"); f.close(); sys.exit()
-
+                     
                           sys.exit()
               else:
                 print(v.status)
         endz = time.perf_counter()
         count = endz - startz
-        print(f"[~] Took {count} seconds.")
+        print(f"[~] Took {count} seconds.") 
         if count < 1:
           print("[-] Sleeping for 0.9 seconds.")
           await asyncio.sleep(0.9)
@@ -100,9 +118,9 @@ async def on_connect():
 
 
 
-
-
-
-
+  
+  
+  
+            
 
 client.run(tkn)
